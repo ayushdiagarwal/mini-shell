@@ -21,7 +21,7 @@ int main(void) {
 
     while (1) {
         // print prompt
-        printf("pintu> ");
+        printf("minishell> ");
         fflush(stdout);
 
         // read input line 
@@ -165,7 +165,7 @@ int handle_builtin(char **args) {
 
     // help
     if (strcmp(args[0], "help") == 0) {
-        printf("pintu shell  - built-in commands:\n");
+        printf("minishell  - built-in commands:\n");
         printf(" cd <dir>    - change directory\n");
         printf(" pwd         - print current directory\n");
         printf(" echo <args> - prints the arguments\n");
@@ -178,8 +178,8 @@ int handle_builtin(char **args) {
     }
 
     if (strcmp(args[0], "about") == 0) {
-        printf("pintu shell - a simple shell written in C\n");
-        printf("Author: Ayush Agarwal\n");
+        printf("minishell - a simple shell written in C\n");
+        printf("Group Members: Ayush Agarwal\n, Krishna Agarwal\n, Siddhant Singh\n, Japleen Kaur\n");
         printf("Features: Built-in commands, External commands, Error handling\n");
         return 1;
     }
@@ -199,7 +199,7 @@ int execute_command(char **args) {
     } else if (pid == 0) {
         // child process
         if (execvp(args[0], args) == -1) {
-            perror("pintu: exec failed");
+            perror("minishell: exec failed");
         }
         exit(EXIT_FAILURE);
     } else {

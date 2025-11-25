@@ -4,7 +4,7 @@ A lightweight command-line shell written in C that demonstrates core Operating S
 
 ---
 
-## 📌 Overview
+## Overview
 
 **Pintu Shell** is a simplified Unix-like shell built as an academic Operating Systems project.
 The shell supports:
@@ -17,7 +17,7 @@ This project focuses on how a shell parses commands, creates processes, interact
 
 ---
 
-## 🎯 Objectives
+## Objectives
 
 This project demonstrates key OS concepts:
 
@@ -28,7 +28,7 @@ This project demonstrates key OS concepts:
 
 ---
 
-## ✨ Features
+## Features
 
 | Feature                              | Type     | Status    |           |
 | ------------------------------------ | -------- | --------- | --------- |
@@ -42,13 +42,9 @@ This project demonstrates key OS concepts:
 | `help`                               | Built-in | ✔️        |           |
 | `about`                              | Built-in | ✔️        |           |
 | Error handling for invalid commands  | Core     | ✔️        |           |
-| **Piping (`                          | `)**     | Advanced  | ⏳ Planned |
-| **I/O Redirection (`>`, `<`, `>>`)** | Advanced | ⏳ Planned |           |
-| **Background execution (`&`)**       | Advanced | ⏳ Planned |           |
-
 ---
 
-## 🏗️ Compilation & Execution
+## Compilation & Execution
 
 ### **Prerequisites**
 
@@ -69,7 +65,7 @@ gcc main.c -o pintu
 
 ---
 
-## 🧪 Sample Usage
+## Sample Usage
 
 ```
 pintu> pwd
@@ -87,16 +83,6 @@ pintu> help
 # List available built-in commands
 
 pintu> exit
-```
-
----
-
-## 📁 Project Structure
-
-```
-├── main.c          // Shell source code
-├── README.md       // Project documentation
-└── pintu           // Compiled binary (after build)
 ```
 
 ---
