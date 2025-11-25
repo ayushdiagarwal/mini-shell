@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <limits.h>
 
 #define MAX_TOKENS 64
 #define DELIM " \t\r\n" // tab, carriage return, newline
@@ -12,13 +13,13 @@
 char *read_line(void);
 int parse_line(char *line, char **args);
 int execute_command(char **args);
+int handle_builtin(char **args);
 
 int main(void) {
     char *line;
     char *args[MAX_TOKENS];
-    int should_run = 1;
 
-    while (should_run) {
+    while (1) {
         // print prompt
         printf("pintu> ");
         fflush(stdout);
@@ -43,6 +44,13 @@ int main(void) {
         if (strcmp(args[0], "exit") == 0) {
             free(line);
             break;
+        }
+
+        // check if it's built-in command
+        if (handle_builtin(args)) {
+            // built-in handled
+            free(line);
+            continue;
         }
 
         // execute external command?
@@ -93,6 +101,93 @@ int parse_line(char *line, char **args) {
     return position;
 }
 
+// for commands like ls, cat, grep -> they are separate linux programs, we will be running the linux 
+
+// handle built-in commands 
+// returns 1 if command is built-in and was handled, 0 otherwise
+
+int handle_builtin(char **args) {
+    
+    // cd
+    if (strcmp(args[0], "cd") == 0) {
+        // no argument -> go to home directory
+        char *target = args[1];
+
+        if (target == NULL) {
+            target = getenv("HOME");
+            if (target == NULL) {
+                fprintf(stderr, "cd: HOME not set\n");
+                return 1;
+            }
+        }
+
+
+        if (chdir(target) != 0) {
+            perror("cd");
+        }
+
+        return 1;
+    }
+
+    // pwd 
+    if (strcmp(args[0], "pwd") == 0) {
+        char cwd[PATH_MAX];
+
+        if (getcwd(cwd, sizeof(cwd)) != NULL) {
+            printf("%s\n", cwd);
+        } else {
+            perror("pwd");
+        }
+
+        return 1;
+    }
+
+    // echo
+    if (strcmp(args[0], "echo") == 0) {
+        int i = 1;
+        while (args[i] != NULL) {
+            printf("%s", args[i]);
+            if (args[i + 1] != NULL) {
+                printf(" ");
+            }
+            i++;
+        }
+        printf("\n");
+        return 1;
+    }    
+
+    // clear
+    if (strcmp(args[0], "clear") == 0) {
+        // ANSI escape code to clear screen and move cursor to top-left
+        printf("\033[H\033[J");
+        return 1;
+    }
+
+    // help
+    if (strcmp(args[0], "help") == 0) {
+        printf("pintu shell  - built-in commands:\n");
+        printf(" cd <dir>    - change directory\n");
+        printf(" pwd         - print current directory\n");
+        printf(" echo <args> - prints the arguments\n");
+        printf(" clear       - clear the screen\n");
+        printf(" help        - show this help message\n");
+        printf(" exit        - exit the shell\n");
+        printf(" about       - show shell information\n");
+
+        return 1;
+    }
+
+    if (strcmp(args[0], "about") == 0) {
+        printf("pintu shell - a simple shell written in C\n");
+        printf("Author: Ayush Agarwal\n");
+        printf("Features: Built-in commands, External commands, Error handling\n");
+        return 1;
+    }
+
+    // not a built-in 
+    return 0;
+}
+
 // forks and executes the command in arg[0] with args[]
 
 int execute_command(char **args) {
@@ -123,6 +218,3 @@ int execute_command(char **args) {
         return 0;
     }
 }
-
-// for commands like ls, cat, grep -> they are separate linux programs, we will be running the linux 
-
