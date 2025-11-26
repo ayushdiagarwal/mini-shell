@@ -1,4 +1,4 @@
-# **Pintu Shell**
+# **MiniShell**
 
 A lightweight command-line shell written in C that demonstrates core Operating System concepts including process creation, system calls, I/O handling, and command execution.
 
@@ -6,7 +6,7 @@ A lightweight command-line shell written in C that demonstrates core Operating S
 
 ## Overview
 
-**Pintu Shell** is a simplified Unix-like shell built as an academic Operating Systems project.
+**MiniShell** is a simplified Unix-like shell built as an academic Operating Systems project.
 The shell supports:
 
 * Executing Linux external commands (`ls`, `cat`, `grep`, etc.)
@@ -54,13 +54,13 @@ This project demonstrates key OS concepts:
 ### **Compile**
 
 ```bash
-gcc main.c -o pintu
+gcc main.c -o minishell
 ```
 
 ### **Run**
 
 ```bash
-./pintu
+./minishell
 ```
 
 ---
@@ -68,21 +68,21 @@ gcc main.c -o pintu
 ## Sample Usage
 
 ```
-pintu> pwd
+minishell> pwd
 /home/ayush
 
-pintu> cd Documents
+minishell> cd Documents
 
-pintu> echo Hello from pintu shell
-Hello from pintu shell
+minishell> echo Hello from minishell shell
+Hello from minishell shell
 
-pintu> ls -l
+minishell> ls -l
 # Output from real Linux 'ls'
 
-pintu> help
+minishell> help
 # List available built-in commands
 
-pintu> exit
+minishell> exit
 ```
 
 ---
